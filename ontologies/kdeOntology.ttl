@@ -1,0 +1,275 @@
+@prefix : <http://www.semanticweb.org/kdeProject/group4/kdeOntology#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <http://www.semanticweb.org/kdeProject/group4/kdeOntology> .
+
+<http://www.semanticweb.org/kdeProject/group4/kdeOntology> rdf:type owl:Ontology ;
+                                                            owl:versionInfo "1.0"@en ;
+                                                            rdfs:comment "This OWL file contains the ontology for the KDE group project. Our group is 4. We have saved the ontology in Turtle format. It contains linked datasets from data.cso.ie (2011 census data of Ireland), and data.geohive.ie (Geographical data of Ireland)."@en ;
+                                                            rdfs:label "Group 4 KDE Ontology"@en .
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  http://dbpedia.org/ontology/nationality
+<http://dbpedia.org/ontology/nationality> rdf:type owl:ObjectProperty ;
+                                          owl:equivalentProperty <http://www.semanticweb.org/kdeProject/group4/kdeOntology/hasNationality> ;
+                                          rdfs:subPropertyOf owl:topObjectProperty .
+
+
+###  http://www.ontology-of-units-of-measure.org/resource/om-2/hasRegion
+<http://www.ontology-of-units-of-measure.org/resource/om-2/hasRegion> rdf:type owl:ObjectProperty ;
+                                                                      rdfs:subPropertyOf owl:topObjectProperty ;
+                                                                      owl:inverseOf <http://www.semanticweb.org/kdeProject/group4/kdeOntology/inRegion> ;
+                                                                      rdfs:comment "Link to a region that is included in the current region."@en .
+
+
+###  http://www.semanticweb.org/kdeProject/group4/kdeOntology/hasArea
+<http://www.semanticweb.org/kdeProject/group4/kdeOntology/hasArea> rdf:type owl:ObjectProperty ;
+                                                                   rdfs:domain <http://www.semanticweb.org/kdeProject/group4/kdeOntology/Region> ;
+                                                                   rdfs:range <http://www.semanticweb.org/kdeProject/group4/kdeOntology/RegionArea> ;
+                                                                   rdfs:comment "Define the region area. Links to RegionArea Individual."@en .
+
+
+###  http://www.semanticweb.org/kdeProject/group4/kdeOntology/hasCounty
+<http://www.semanticweb.org/kdeProject/group4/kdeOntology/hasCounty> rdf:type owl:ObjectProperty ;
+                                                                     rdfs:domain <http://www.semanticweb.org/kdeProject/group4/kdeOntology/CountyNationalityObs> ;
+                                                                     rdfs:range <http://www.semanticweb.org/kdeProject/group4/kdeOntology/County> ;
+                                                                     rdfs:comment "Used to define the County related to the CountyNationalityObs."@en .
+
+
+###  http://www.semanticweb.org/kdeProject/group4/kdeOntology/hasNationality
+<http://www.semanticweb.org/kdeProject/group4/kdeOntology/hasNationality> rdf:type owl:ObjectProperty ;
+                                                                          rdfs:domain <http://www.semanticweb.org/kdeProject/group4/kdeOntology/CountyNationalityObs> ;
+                                                                          rdfs:range <http://www.semanticweb.org/kdeProject/group4/kdeOntology/Nationality> ;
+                                                                          rdfs:comment "Used to define the Nationality of a CountyNationalityObs."@en .
+
+
+###  http://www.semanticweb.org/kdeProject/group4/kdeOntology/hasNeighbour
+<http://www.semanticweb.org/kdeProject/group4/kdeOntology/hasNeighbour> rdf:type owl:ObjectProperty ,
+                                                                                 owl:SymmetricProperty ;
+                                                                        rdfs:comment "Define a region of same type that shares a border."@en .
+
+
+###  http://www.semanticweb.org/kdeProject/group4/kdeOntology/hasUnit
+<http://www.semanticweb.org/kdeProject/group4/kdeOntology/hasUnit> rdf:type owl:ObjectProperty ;
+                                                                   rdfs:domain <http://www.semanticweb.org/kdeProject/group4/kdeOntology/RegionArea> ;
+                                                                   rdfs:range <http://www.semanticweb.org/kdeProject/group4/kdeOntology/AreaUnits> ;
+                                                                   rdfs:comment "Define the unit of a RegionArea."@en .
+
+
+###  http://www.semanticweb.org/kdeProject/group4/kdeOntology/inRegion
+<http://www.semanticweb.org/kdeProject/group4/kdeOntology/inRegion> rdf:type owl:ObjectProperty ,
+                                                                             owl:TransitiveProperty ;
+                                                                    rdfs:comment "Define a geographical parent of a region."@en .
+
+
+###  http://www.semanticweb.org/kdeProject/group4/kdeOntology/linkedCsoRegion
+<http://www.semanticweb.org/kdeProject/group4/kdeOntology/linkedCsoRegion> rdf:type owl:ObjectProperty ;
+                                                                           rdfs:domain <http://www.semanticweb.org/kdeProject/group4/kdeOntology/Region> ;
+                                                                           rdfs:comment "A link to the same region in the CSO datasets."@en .
+
+
+###  http://www.semanticweb.org/kdeProject/group4/kdeOntology/linkedGeohiveRegion
+<http://www.semanticweb.org/kdeProject/group4/kdeOntology/linkedGeohiveRegion> rdf:type owl:ObjectProperty ,
+                                                                                        owl:FunctionalProperty ;
+                                                                               rdfs:domain <http://www.semanticweb.org/kdeProject/group4/kdeOntology/Region> ;
+                                                                               rdfs:comment "A link to the same region in the Geohive datasets."@en .
+
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  http://www.semanticweb.org/kdeProject/group4/kdeOntology/hasPopulation
+<http://www.semanticweb.org/kdeProject/group4/kdeOntology/hasPopulation> rdf:type owl:DatatypeProperty ;
+                                                                         rdfs:subPropertyOf owl:topDataProperty ;
+                                                                         rdfs:range xsd:integer ;
+                                                                         rdfs:comment "The population of a Legal Town or city"@en .
+
+
+###  http://www.semanticweb.org/kdeProject/group4/kdeOntology/valueDouble
+<http://www.semanticweb.org/kdeProject/group4/kdeOntology/valueDouble> rdf:type owl:DatatypeProperty ;
+                                                                       rdfs:range xsd:double ;
+                                                                       rdfs:comment "The value in Double of a RegionArea"@en .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://www.geonames.org/ontology#Feature
+<http://www.geonames.org/ontology#Feature> rdf:type owl:Class .
+
+
+###  http://www.ontology-of-units-of-measure.org/resource/om-2/AreaUnit
+<http://www.ontology-of-units-of-measure.org/resource/om-2/AreaUnit> rdf:type owl:Class ;
+                                                                     owl:equivalentClass <http://www.semanticweb.org/kdeProject/group4/kdeOntology/AreaUnits> .
+
+
+###  http://www.semanticweb.org/kdeProject/group4/kdeOntology/AreaUnits
+<http://www.semanticweb.org/kdeProject/group4/kdeOntology/AreaUnits> rdf:type owl:Class ;
+                                                                     rdfs:comment """Regroups the units to measure area
+same as http://www.ontology-of-units-of-measure.org/resource/om-2/AreaUnit"""@en .
+
+
+###  http://www.semanticweb.org/kdeProject/group4/kdeOntology/City
+<http://www.semanticweb.org/kdeProject/group4/kdeOntology/City> rdf:type owl:Class ;
+                                                                rdfs:subClassOf <http://www.semanticweb.org/kdeProject/group4/kdeOntology/CityAndTown> ;
+                                                                rdfs:comment "a Legal town or city with more than 10000 inhabitants"@en .
+
+
+###  http://www.semanticweb.org/kdeProject/group4/kdeOntology/CityAndTown
+<http://www.semanticweb.org/kdeProject/group4/kdeOntology/CityAndTown> rdf:type owl:Class ;
+                                                                       rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                                                                         owl:onProperty <http://www.semanticweb.org/kdeProject/group4/kdeOntology/inRegion> ;
+                                                                                         owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                                                         owl:onClass <http://www.semanticweb.org/kdeProject/group4/kdeOntology/County>
+                                                                                       ] ,
+                                                                                       [ rdf:type owl:Restriction ;
+                                                                                         owl:onProperty <http://www.semanticweb.org/kdeProject/group4/kdeOntology/inRegion> ;
+                                                                                         owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                                                         owl:onClass <http://www.semanticweb.org/kdeProject/group4/kdeOntology/Settlement>
+                                                                                       ] ,
+                                                                                       [ rdf:type owl:Restriction ;
+                                                                                         owl:onProperty <http://www.semanticweb.org/kdeProject/group4/kdeOntology/linkedCsoRegion> ;
+                                                                                         owl:cardinality "1"^^xsd:nonNegativeInteger
+                                                                                       ] ,
+                                                                                       [ rdf:type owl:Restriction ;
+                                                                                         owl:onProperty <http://www.semanticweb.org/kdeProject/group4/kdeOntology/linkedGeohiveRegion> ;
+                                                                                         owl:cardinality "1"^^xsd:nonNegativeInteger
+                                                                                       ] ,
+                                                                                       [ rdf:type owl:Restriction ;
+                                                                                         owl:onProperty <http://www.semanticweb.org/kdeProject/group4/kdeOntology/hasPopulation> ;
+                                                                                         owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                                                         owl:onDataRange xsd:integer
+                                                                                       ] ;
+                                                                       rdfs:comment "Legal Town and cities"@en .
+
+
+###  http://www.semanticweb.org/kdeProject/group4/kdeOntology/County
+<http://www.semanticweb.org/kdeProject/group4/kdeOntology/County> rdf:type owl:Class ;
+                                                                  rdfs:subClassOf <http://www.semanticweb.org/kdeProject/group4/kdeOntology/Region> ,
+                                                                                  [ rdf:type owl:Restriction ;
+                                                                                    owl:onProperty <http://www.semanticweb.org/kdeProject/group4/kdeOntology/hasNeighbour> ;
+                                                                                    owl:allValuesFrom <http://www.semanticweb.org/kdeProject/group4/kdeOntology/County>
+                                                                                  ] ,
+                                                                                  [ rdf:type owl:Restriction ;
+                                                                                    owl:onProperty <http://www.semanticweb.org/kdeProject/group4/kdeOntology/hasNationality> ;
+                                                                                    owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                                                    owl:onClass <http://www.semanticweb.org/kdeProject/group4/kdeOntology/Nationality>
+                                                                                  ] ;
+                                                                  rdfs:comment "This class contains Counties"@en ;
+                                                                  rdfs:label "County"@en .
+
+
+###  http://www.semanticweb.org/kdeProject/group4/kdeOntology/CountyNationalityObs
+<http://www.semanticweb.org/kdeProject/group4/kdeOntology/CountyNationalityObs> rdf:type owl:Class ;
+                                                                                rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                                                                                  owl:onProperty <http://www.semanticweb.org/kdeProject/group4/kdeOntology/hasCounty> ;
+                                                                                                  owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                                                                  owl:onClass <http://www.semanticweb.org/kdeProject/group4/kdeOntology/County>
+                                                                                                ] ,
+                                                                                                [ rdf:type owl:Restriction ;
+                                                                                                  owl:onProperty <http://www.semanticweb.org/kdeProject/group4/kdeOntology/hasNationality> ;
+                                                                                                  owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                                                                  owl:onClass <http://www.semanticweb.org/kdeProject/group4/kdeOntology/Nationality>
+                                                                                                ] ,
+                                                                                                [ rdf:type owl:Restriction ;
+                                                                                                  owl:onProperty <http://www.semanticweb.org/kdeProject/group4/kdeOntology/hasPopulation> ;
+                                                                                                  owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                                                                  owl:onDataRange xsd:int
+                                                                                                ] ;
+                                                                                rdfs:comment "A observation of population nationalities representations for a county."@en .
+
+
+###  http://www.semanticweb.org/kdeProject/group4/kdeOntology/ElectoralDivision
+<http://www.semanticweb.org/kdeProject/group4/kdeOntology/ElectoralDivision> rdf:type owl:Class ;
+                                                                             rdfs:subClassOf <http://www.semanticweb.org/kdeProject/group4/kdeOntology/Region> ,
+                                                                                             [ rdf:type owl:Restriction ;
+                                                                                               owl:onProperty <http://www.semanticweb.org/kdeProject/group4/kdeOntology/hasNeighbour> ;
+                                                                                               owl:allValuesFrom <http://www.semanticweb.org/kdeProject/group4/kdeOntology/ElectoralDivision>
+                                                                                             ] ;
+                                                                             rdfs:comment "This class contains Electoral Divisions"@en ;
+                                                                             rdfs:label "Electoral Division"@en .
+
+
+###  http://www.semanticweb.org/kdeProject/group4/kdeOntology/Nationality
+<http://www.semanticweb.org/kdeProject/group4/kdeOntology/Nationality> rdf:type owl:Class ;
+                                                                       rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                                                                         owl:onProperty <http://www.semanticweb.org/kdeProject/group4/kdeOntology/hasCounty> ;
+                                                                                         owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                                                         owl:onClass <http://www.semanticweb.org/kdeProject/group4/kdeOntology/County>
+                                                                                       ] ;
+                                                                       owl:disjointWith <http://www.semanticweb.org/kdeProject/group4/kdeOntology/Region> ;
+                                                                       rdfs:comment "Contains nationalities living in Ireland"@en .
+
+
+###  http://www.semanticweb.org/kdeProject/group4/kdeOntology/Region
+<http://www.semanticweb.org/kdeProject/group4/kdeOntology/Region> rdf:type owl:Class ;
+                                                                  rdfs:subClassOf <http://www.geonames.org/ontology#Feature> ,
+                                                                                  [ rdf:type owl:Restriction ;
+                                                                                    owl:onProperty <http://www.semanticweb.org/kdeProject/group4/kdeOntology/linkedCsoRegion> ;
+                                                                                    owl:minCardinality "1"^^xsd:nonNegativeInteger
+                                                                                  ] ,
+                                                                                  [ rdf:type owl:Restriction ;
+                                                                                    owl:onProperty <http://www.semanticweb.org/kdeProject/group4/kdeOntology/linkedGeohiveRegion> ;
+                                                                                    owl:cardinality "1"^^xsd:nonNegativeInteger
+                                                                                  ] ;
+                                                                  rdfs:comment "This class contains regions of Ireland: Counties, Electoral Divisions and Settlements"@en .
+
+
+###  http://www.semanticweb.org/kdeProject/group4/kdeOntology/RegionArea
+<http://www.semanticweb.org/kdeProject/group4/kdeOntology/RegionArea> rdf:type owl:Class ;
+                                                                      rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                                                                        owl:onProperty <http://www.semanticweb.org/kdeProject/group4/kdeOntology/hasUnit> ;
+                                                                                        owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                                                        owl:onClass <http://www.semanticweb.org/kdeProject/group4/kdeOntology/AreaUnits>
+                                                                                      ] ,
+                                                                                      [ rdf:type owl:Restriction ;
+                                                                                        owl:onProperty <http://www.semanticweb.org/kdeProject/group4/kdeOntology/valueDouble> ;
+                                                                                        owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                                                        owl:onDataRange xsd:double
+                                                                                      ] ;
+                                                                      rdfs:comment "Area of any type of region"@en .
+
+
+###  http://www.semanticweb.org/kdeProject/group4/kdeOntology/Settlement
+<http://www.semanticweb.org/kdeProject/group4/kdeOntology/Settlement> rdf:type owl:Class ;
+                                                                      rdfs:subClassOf <http://www.semanticweb.org/kdeProject/group4/kdeOntology/Region> ,
+                                                                                      [ rdf:type owl:Restriction ;
+                                                                                        owl:onProperty <http://www.semanticweb.org/kdeProject/group4/kdeOntology/hasNeighbour> ;
+                                                                                        owl:allValuesFrom <http://www.semanticweb.org/kdeProject/group4/kdeOntology/Settlement>
+                                                                                      ] ,
+                                                                                      [ rdf:type owl:Restriction ;
+                                                                                        owl:onProperty <http://www.semanticweb.org/kdeProject/group4/kdeOntology/inRegion> ;
+                                                                                        owl:allValuesFrom <http://www.semanticweb.org/kdeProject/group4/kdeOntology/County>
+                                                                                      ] ;
+                                                                      rdfs:comment "A Irish settlement."@en .
+
+
+###  http://www.semanticweb.org/kdeProject/group4/kdeOntology/Town
+<http://www.semanticweb.org/kdeProject/group4/kdeOntology/Town> rdf:type owl:Class ;
+                                                                rdfs:subClassOf <http://www.semanticweb.org/kdeProject/group4/kdeOntology/CityAndTown> ;
+                                                                rdfs:comment "A legal town or city with less than 10000 inhabitants"@en .
+
+
+#################################################################
+#    Individuals
+#################################################################
+
+###  http://www.semanticweb.org/kdeProject/group4/kdeOntology/squareKilometre
+<http://www.semanticweb.org/kdeProject/group4/kdeOntology/squareKilometre> rdf:type owl:NamedIndividual ,
+                                                                                    <http://www.semanticweb.org/kdeProject/group4/kdeOntology/AreaUnits> ;
+                                                                           owl:sameAs <http://www.wurvoc.org/vocabularies/om-2.0/squareKilometer> .
+
+
+###  http://www.wurvoc.org/vocabularies/om-2.0/squareKilometer
+<http://www.wurvoc.org/vocabularies/om-2.0/squareKilometer> rdf:type owl:NamedIndividual .
+
+
+###  Generated by the OWL API (version 4.2.8.20170104-2310) https://github.com/owlcs/owlapi
